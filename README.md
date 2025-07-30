@@ -1,4 +1,5 @@
 N-Scatter Pool Cipher
+
 A modern cryptographic tool that combines N-Shift cipher with a scatter pool technique for secure message encoding and decoding.
 
 Features
