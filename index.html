@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N-Scatter Pool Cipher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aptos:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="top-bar">
+        <h1 class="title animate__animated animate__fadeIn">N-Scatter Pool Cipher</h1>
+        <div class="tabs">
+            <button class="tab-btn active animate__animated animate__fadeIn animate__delay-1s" data-tab="encode">Encode</button>
+            <button class="tab-btn animate__animated animate__fadeIn animate__delay-1s" data-tab="decode">Decode</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Encoding Section -->
+        <div id="encode" class="tab-content active">
+            <div class="card input-card">
+                <h2>Encoding Process</h2>
+                
+                <div class="input-section">
+                    <h3><span class="icon">📝</span> Input Text</h3>
+                    <div class="input-options">
+                        <label><input type="radio" name="encode-input-type" value="text" checked> Type Text</label>
+                        <label><input type="radio" name="encode-input-type" value="file"> Load from File</label>
+                    </div>
+                    <textarea id="encode-text" placeholder="Enter text to encode"></textarea>
+                    <input type="file" id="encode-file" style="display: none;" accept=".txt">
+                    <div class="button-group">
+                        <button id="encode-load-btn" class="file-btn">Load File</button>
+                        <button id="clear-encode-btn" class="clear-btn">Clear</button>
+                    </div>
+                </div>
+                
+                <div class="key-section">
+                    <h3><span class="icon">🔑</span> Universal Key</h3>
+                    <div class="input-options">
+                        <label><input type="radio" name="encode-key-type" value="text" checked> Type Key</label>
+                        <label><input type="radio" name="encode-key-type" value="file"> Load from File</label>
+                    </div>
+                    <input type="text" id="encode-key" placeholder="Enter digits only">
+                    <input type="file" id="encode-key-file" style="display: none;" accept=".txt">
+                    <button id="encode-key-load-btn" class="file-btn">Load Key File</button>
+                </div>
+                
+                <button id="encode-btn" class="action-btn animate__animated animate__pulse animate__infinite">Encode</button>
+            </div>
+            
+            <div class="card output-card animate__animated animate__fadeIn animate__delay-1s">
+                <h3><span class="icon">📤</span> Output</h3>
+                <div class="output-steps">
+                    <div class="output-step">
+                        <h4>After Number Conversion:</h4>
+                        <textarea id="encode-number-conversion" readonly></textarea>
+                    </div>
+                    <div class="output-step">
+                        <h4>N-Shift Encoded:</h4>
+                        <textarea id="encode-nshift" readonly></textarea>
+                    </div>
+                    <div class="output-step">
+                        <h4>Prime Positions:</h4>
+                        <textarea id="encode-primes" readonly></textarea>
+                    </div>
+                    <div class="output-step">
+                        <h4>Final Pool:</h4>
+                        <textarea id="encode-pool" readonly></textarea>
+                    </div>
+                </div>
+                <div class="save-buttons">
+                    <button id="save-pool-btn" class="save-btn">💾 Save Pool</button>
+                    <button id="save-primes-btn" class="save-btn">📊 Save Primes</button>
+                    <button id="save-all-encode-btn" class="save-btn">🗂️ Save All</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decoding Section -->
+        <div id="decode" class="tab-content">
+            <div class="card input-card">
+                <h2>Decoding Process</h2>
+                
+                <div class="input-section">
+                    <h3><span class="icon">🏊</span> Pool Content</h3>
+                    <div class="input-options">
+                        <label><input type="radio" name="decode-input-type" value="text"> Type Pool</label>
+                        <label><input type="radio" name="decode-input-type" value="file" checked> Load from File</label>
+                    </div>
+                    <textarea id="decode-pool" placeholder="Or load pool.txt file"></textarea>
+                    <input type="file" id="decode-file" style="display: none;" accept=".txt">
+                    <div class="button-group">
+                        <button id="decode-load-btn" class="file-btn">Load Pool File</button>
+                        <button id="clear-decode-btn" class="clear-btn">Clear</button>
+                    </div>
+                </div>
+                
+                <div class="key-section">
+                    <h3><span class="icon">🔑</span> Universal Key</h3>
+                    <div class="input-options">
+                        <label><input type="radio" name="decode-key-type" value="text" checked> Type Key</label>
+                        <label><input type="radio" name="decode-key-type" value="file"> Load from File</label>
+                    </div>
+                    <input type="text" id="decode-key" placeholder="Enter digits only">
+                    <input type="file" id="decode-key-file" style="display: none;" accept=".txt">
+                    <button id="decode-key-load-btn" class="file-btn">Load Key File</button>
+                </div>
+                
+                <div class="primes-section">
+                    <h3><span class="icon">🔢</span> Prime Positions</h3>
+                    <div class="input-options">
+                        <label><input type="radio" name="decode-primes-type" value="text"> Type Positions</label>
+                        <label><input type="radio" name="decode-primes-type" value="file" checked> Load from File</label>
+                    </div>
+                    <textarea id="decode-primes" placeholder="Space-separated numbers or load primes.txt"></textarea>
+                    <input type="file" id="decode-primes-file" style="display: none;" accept=".txt">
+                    <button id="decode-primes-load-btn" class="file-btn">Load Primes File</button>
+                </div>
+                
+                <button id="decode-btn" class="action-btn animate__animated animate__pulse animate__infinite">Decode</button>
+            </div>
+            
+            <div class="card output-card animate__animated animate__fadeIn animate__delay-1s">
+                <h3><span class="icon">📥</span> Output</h3>
+                <div class="output-steps">
+                    <div class="output-step">
+                        <h4>Scatter Pool Decoded:</h4>
+                        <textarea id="decode-scatterpool" readonly></textarea>
+                    </div>
+                    <div class="output-step">
+                        <h4>Final Decoded Message:</h4>
+                        <textarea id="decode-final" readonly></textarea>
+                    </div>
+                </div>
+                <div class="save-buttons">
+                    <button id="save-decoded-btn" class="save-btn">💾 Save Decoded</button>
+                    <button id="save-all-decode-btn" class="save-btn">🗂️ Save All</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status" id="status"></div>
+    </div>
+    
+    <div class="particles" id="particles-js"></div>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
